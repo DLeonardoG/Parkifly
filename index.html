@@ -18,58 +18,17 @@
             <nav>
                 <ul class="lista">
                     <li>
-                        <button id="crear" class="boton-menu boton-categoria active"><i class="bi bi-plus-circle"></i><span>Crear</span></button>
+                        <button id="crear" class="boton-menu boton-categoria"><i class="bi bi-plus-circle"></i><span>Crear</span></button>
                     </li>
                     <li>
-                        <button id="crear" class="boton-menu boton-categoria "><i class="bi bi-eye"></i><span>Ver</span></button>
+                        <button id="ver" class="boton-menu boton-categoria "><i class="bi bi-eye"></i><span>Ver</span></button>
                     </li>
                 </ul>
             </nav>
         </aside>
-        <main id="main" class="formulario">
-            <div id="contenedor-elementos" class="contenedor-elementos contenedor-formulario">
+        <main id="main">
+            <div id="contenedor-elementos" class="contenedor-elementos">
                 <!-- Esto se va a rellenar con JS -->
-                 <div class="title">Registro</div>
-                 <form id="form-registro">
-                    <div class="form-group">
-                        <span>Placa</span>
-                        <input type="text" id="placa" placeholder="Ingrese la placa" required>
-                    </div>
-                    <div class="form-group">
-                        <span>Tipo</span>
-                        <select id="tipo" name="tipo" required>
-                            <option value="Carro">Carro</option>
-                            <option value="Moto">Moto</option>
-                            <option value="Bus">Bus</option>
-                            <option value="Camioneta">Camioneta</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <span>Hora de entrada</span>
-                        <input type="time" id="hora" name="hora" required>
-                    </div>
-                    <div class="form-group">
-                        <span>Nivel</span>
-                        <select id="nivel" name="nivel" required>
-                            <option value="S">Stark(S)</option>
-                            <option value="T">Targarien(T)</option>
-                            <option value="L">Lanister(L)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <span>Espacio</span>
-                        <select id="espacio" name="espacio" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-                    <div class="button">
-                        <input type="submit" value="Registrar Carro">
-                    </div>
-                    <!-- <button type="submit" class="boton boton-guardar">Guardar</button>
-                    <button type="button" class="boton boton-cancelar">Cancelar</button> -->
-                 </form>
             </div>
         </main>
     </div>

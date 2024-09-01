@@ -1,8 +1,11 @@
 const URL = "https://66d39804184dce1713d08825.mockapi.io/gotpark/vehiculos";
-
+const crearBoton = document.getElementById("crear");
+const VerBoton = document.getElementById("ver");
+const main = document.getElementById("main");
+const contenedorElementos = document.getElementById("contenedor-elementos");
+const todosLosBotones = document.querySelectorAll(".boton-categoria")
 
 // const tablaBody = document.getElementById("tabla-body")
-
 // AQUI SE PIDEN LOS DATOS DE MOCKAPI
 async function obtenerDatos(url) {
     try {
@@ -17,15 +20,7 @@ async function obtenerDatos(url) {
         console.error("Error en la solicitud:", error);
     }
 }
-
-async function guardarForm(){
-    if (document.querySelector("#form-registro")){
-        let formRegistro = document.getElementById("form-registro");
-        formRegistro.onsubmit = function(e){
-            e.preventDefault();
-            formGuardar();
-        }
-}}
+// Crear vehiculo y rellenar el formulario
 async function formGuardar() {
     // Se guarda las informacion en en variables
     const placa = document.getElementById("placa").value;
@@ -92,9 +87,61 @@ async function formGuardar() {
         return;
     }
 }
-// let apellido = document.getElementById("apellido").value;
-// let email = document.getElementById("email").value;
-// let contrasenia = document.getElementById("contrasenia").value;
+async function guardarForm(){
+    if (document.querySelector("#form-registro")){
+        let formRegistro = document.getElementById("form-registro");
+        formRegistro.onsubmit = function(e){
+            e.preventDefault();
+            formGuardar();
+        }
+}}
+function crearForm(){
+    main.classList.add("formulario");
+                contenedorElementos.classList.add("contenedor-formulario");
+                contenedorElementos.innerHTML= "";
+                contenedorElementos.innerHTML = `
+                <h1 class="title">Registro de vehiculos</h1>
+                <form id="form-registro">
+                    <div class="form-group">
+                        <span>Placa</span>
+                        <input type="text" id="placa" placeholder="Ingrese la placa" required>
+                    </div>
+                    <div class="form-group">
+                        <span>Tipo</span>
+                        <select id="tipo" name="tipo" required>
+                            <option value="Carro">Carro</option>
+                            <option value="Moto">Moto</option>
+                            <option value="Bus">Bus</option>
+                            <option value="Camioneta">Camioneta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <span>Hora de entrada</span>
+                        <input type="time" id="hora" name="hora" required>
+                    </div>
+                    <div class="form-group">
+                        <span>Nivel</span>
+                        <select id="nivel" name="nivel" required>
+                            <option value="S">Stark(S)</option>
+                            <option value="T">Targarien(T)</option>
+                            <option value="L">Lanister(L)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <span>Espacio</span>
+                        <select id="espacio" name="espacio" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Registrar Carro">
+                    </div>
+                </form>
+                `;
+        guardarForm();
+}
 function limpiarForm() {
     document.getElementById("placa").value = "";
     document.getElementById("tipo").value = "";
@@ -105,5 +152,27 @@ function limpiarForm() {
 function validarPlaca(cadena) {
     const regex = /^[A-Za-z]{3}\d{3}$/;
     return regex.test(cadena);
-  }
-guardarForm()
+}
+// Hasta aqui viene la funcionalidad de crear formulario
+// *******************************************************
+
+// Agregar los eventos a las funciones necesarias
+function botonesEventoFuncion(){
+todosLosBotones.forEach((boton) => {
+    boton.addEventListener("click", (e) => {
+    todosLosBotones.forEach((boton) => {
+        boton.classList.remove("active");
+    })
+    main.className = "";
+    contenedorElementos.className = "";
+    e.currentTarget.classList.add("active");
+    const per = e.currentTarget.id;
+    switch (per) {
+        case "crear":
+            crearForm();
+        case "ver":
+            console.log("Ver")
+    }})}
+)};
+
+botonesEventoFuncion()
