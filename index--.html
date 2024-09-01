@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GotPark</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="icon" href="https://i.pinimg.com/originals/06/63/ee/0663eeacca54ae7ca42e17acbb369b32.png">
+    <link rel="stylesheet" href="styles--.css">
+</head>
+<body>
+    <div class="gran-div">
+         <aside class="oculto">
+            <header>
+                <button id="header" class="boton-menu-cabe"><img class="imagenMenu" src="https://1000marcas.net/wp-content/uploads/2019/12/logo-StarWars.png" alt="peliculas"></button>
+            </header>
+            <nav>
+                <ul class="menu">
+                    <li>
+                        <button id="crear" class="boton-menu boton-categoria active"><img class="imagenMenu" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Starwars_2013_Emote_Rebel_Alliance.png" alt="peliculas"><span>Peliculas</span></button>
+                </li>
+                <li>
+                        <button id="personajes" class="boton-menu boton-categoria"><img class="imagenMenu" src="https://i.pinimg.com/originals/3f/a9/87/3fa987589666e0b7ec37879811576ffb.png" alt="personajes"><span>Personajes</span></button>
+                </li>
+            </ul>
+        </nav>
+        <footer>
+            <button>
+                <i class="bi bi-trash"></i> Borrar
+            </button>
+        </footer>
+
+        </aside>
+        <div class="tabla-div">
+            <button class="boton boton-crear">Agrgar</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                        <th>Hora</th>
+                        <th>Espacio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-body">
+                    <tr>
+                        <td>1</td>
+                        <td>ABC-123</td>
+                        <td>Moto</td>
+                        <td>7 am</td>
+                        <td><img class="img-icon" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2aeb4222-47b4-4093-9ee3-4441c2942a1f/da9sf2s-dd972ade-c344-4a85-b2a5-f7fedf9507ca.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJhZWI0MjIyLTQ3YjQtNDA5My05ZWUzLTQ0NDFjMjk0MmExZlwvZGE5c2Yycy1kZDk3MmFkZS1jMzQ0LTRhODUtYjJhNS1mN2ZlZGY5NTA3Y2EucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.HQkJ0kX5uW_yVc_sUMpTp6U1HxugNToC0xHxUhY1kxE" alt=""> A2</td>
+                        <td><button class="boton boton-editar">Editar</button><button class="boton boton-eliminar">Eliminar</button></td>
+                </tbody>
+            </table>
+        </div>
+        <div class="formulario-div">
+            <h2>Agregar Vehículo</h2>
+            <form id="formulario">
+                <div class="form-group">
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" name="placa" required>
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="Moto">Moto</option>
+                        <option value="Carro">Carro</option>
+                        <option value="Camioneta">Camioneta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="hora">Hora:</label>
+                    <input type="time" id="hora" name="hora" required>
+                </div>
+                <div class="form-group">
+                    <label for="espacio">Espacio:</label>
+                    <input type="text" id="espacio" name="espacio" required>
+                </div>
+                <button type="submit" class="boton boton-guardar">Guardar</button>
+                <button type="button" class="boton boton-cancelar">Cancelar</button>
+            </form>
+        </div>
+        <section class="form-register formulario-div oculto">
+            <h4>Formulario Registro</h4>
+           
+            <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
+            <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
+            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
+            <input class="controls" type="password" name="correo" id="correo" placeholder="Ingrese su Contraseña">
+            <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+            <input class="botons" type="submit" value="Registrar">
+            <p><a href="#">¿Ya tengo Cuenta?</a></p>
+          </section>
+    </div>
+</body>
+<script src="script--.js"></script>
+</html>
