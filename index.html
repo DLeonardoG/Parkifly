@@ -9,34 +9,98 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="padre">
-        <aside>
+    <div class="gran-div">
+         <aside>
             <nav>
                 <ul class="menu">
                     <li>
-                        <button id="crear" class="boton-menu boton-categoria active"><img class="imagenMenu" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Starwars_2013_Emote_Rebel_Alliance.png" alt="peliculas"><span>Crear</span></button>
-                    </li>
-                    <li>
-                        <button id="actualizar" class="boton-menu boton-categoria active"><img class="imagenMenu" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Starwars_2013_Emote_Rebel_Alliance.png" alt="actualizar"><span>Actualizar</span></button>
-                    </li>
-                    <li>
-                        <button id="ver" class="boton-menu boton-categoria active"><img class="imagenMenu" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Starwars_2013_Emote_Rebel_Alliance.png" alt="ver"><span>Ver</span></button>
-                    </li>
-                    <li>
-                        <button id="eliminar" class="boton-menu boton-categoria active"><img class="imagenMenu" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Starwars_2013_Emote_Rebel_Alliance.png" alt="eliminar"><span>Eliminar</span></button>
-                    </li>
-                </ul>
-            </nav>
+                        <button id="peliculas" class="boton-menu boton-categoria active"><img class="imagenMenu" src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Starwars_2013_Emote_Rebel_Alliance.png" alt="peliculas"><span>Peliculas</span></button>
+                </li>
+                <li>
+                        <button id="personajes" class="boton-menu boton-categoria"><img class="imagenMenu" src="https://i.pinimg.com/originals/3f/a9/87/3fa987589666e0b7ec37879811576ffb.png" alt="personajes"><span>Personajes</span></button>
+                </li>
+                <li>
+                        <button id="naves" class="boton-menu boton-categoria"><img class="imagenMenu" src="https://cdn.icon-icons.com/icons2/335/PNG/256/Tie_Fighter_-_02_35418.png" alt="naves"><span>Naves</span></button>
+                </li>
+                <li>
+                        <button id="especies" class="boton-menu boton-categoria"><img class="imagenMenu" src="https://images.vexels.com/media/users/3/185103/isolated/lists/aae04010a88128baec09d29b6702fcd7-simio-criatura-como-icono.png" alt="especies"><span>Especies</span></button>
+                </li>
+                <li>
+                        <button id="vehiculos" class="boton-menu boton-categoria"><img class="imagenMenu" src="https://cdn.icon-icons.com/icons2/335/PNG/256/Millenium_Falcon_-_02_35432.png" alt="vehiculos"><span>Vehiculos</span></button>
+                </li>
+                <li>
+                    <button id="planetas" class="boton-menu boton-categoria"><img class="imagenMenu" src="https://icons.iconarchive.com/icons/3xhumed/mega-games-pack-18/256/Star-Wars-Galactic-Battlegrounds-1-icon.png" alt="vehiculos"><span>Planetas</span></button>
+                </li>
+            </ul>
+        </nav>
+            <footer>
+                <button id="footer" class="boton-menu-cabe"><img class="imagenMenu" src="https://1000marcas.net/wp-content/uploads/2019/12/logo-StarWars.png" alt="peliculas"></button>
+            </footer>
         </aside>
-        <main>
-            
-        </main>
+        <div class="tabla-div oculto">
+            <button class="boton boton-crear">Agrgar</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                        <th>Hora</th>
+                        <th>Espacio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-body">
+                    <tr>
+                        <td>1</td>
+                        <td>ABC-123</td>
+                        <td>Moto</td>
+                        <td>7 am</td>
+                        <td><img class="img-icon" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2aeb4222-47b4-4093-9ee3-4441c2942a1f/da9sf2s-dd972ade-c344-4a85-b2a5-f7fedf9507ca.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzJhZWI0MjIyLTQ3YjQtNDA5My05ZWUzLTQ0NDFjMjk0MmExZlwvZGE5c2Yycy1kZDk3MmFkZS1jMzQ0LTRhODUtYjJhNS1mN2ZlZGY5NTA3Y2EucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.HQkJ0kX5uW_yVc_sUMpTp6U1HxugNToC0xHxUhY1kxE" alt=""> A2</td>
+                        <td><button class="boton boton-editar">Editar</button><button class="boton boton-eliminar">Eliminar</button></td>
+                </tbody>
+            </table>
+        </div>
+        <div class="formulario-div oculto">
+            <h2>Agregar Vehículo</h2>
+            <form id="formulario">
+                <div class="form-group">
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" name="placa" required>
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="Moto">Moto</option>
+                        <option value="Carro">Carro</option>
+                        <option value="Camioneta">Camioneta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="hora">Hora:</label>
+                    <input type="time" id="hora" name="hora" required>
+                </div>
+                <div class="form-group">
+                    <label for="espacio">Espacio:</label>
+                    <input type="text" id="espacio" name="espacio" required>
+                </div>
+                <button type="submit" class="boton boton-guardar">Guardar</button>
+                <button type="button" class="boton boton-cancelar">Cancelar</button>
+            </form>
+        </div>
+        <section class="form-register formulario-div oculto">
+            <h4>Formulario Registro</h4>
+           
+            <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
+            <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
+            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
+            <input class="controls" type="password" name="correo" id="correo" placeholder="Ingrese su Contraseña">
+            <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
+            <input class="botons" type="submit" value="Registrar">
+            <p><a href="#">¿Ya tengo Cuenta?</a></p>
+          </section>
     </div>
 </body>
-<!-- <form>
-    <div class="form-group">
-        <label for="ciudad">Ciudad</label>
-        <input type="text" class="form-control" id="ciudad" placeholder="Escribe tu ciudad">
-    </div> -->
 <script src="script.js"></script>
 </html>
