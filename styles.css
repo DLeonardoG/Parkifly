@@ -74,7 +74,7 @@ header {
     font-weight: 400;
     padding: 0;
     font-size: 0.9rem;
-    width: 100%;
+    width: 80%;
     color: var(--clr-white);
 }
 .lista {
@@ -105,7 +105,6 @@ main {
     height: 80vh;
     justify-content: center;
     align-items: center;
-
 }
 .contenedor-formulario {
     max-width: 700px;
@@ -159,7 +158,6 @@ form .button input {
     border: none;
     border-radius: 5px;
 }
-
 /* Para la tabla */
 .main-tabla{
     background-image: url("https://media4.giphy.com/media/551KVCDoIwyiyXMVG9/giphy.gif");
@@ -170,8 +168,8 @@ form .button input {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
     background-color: var(--clr-transparente);
+    min-height: 85vh;
 }
 .tabla-div{
 }
@@ -210,13 +208,31 @@ tr:nth-child(even){ background-color: var(--clr-blue-sky);}
     border: none;
     cursor: pointer;
     border-radius: 1vw;
+    display: flex;
+    gap: 1vw;
+    margin: auto;
 }
 .boton-eliminar {background-color: var(--clr-red);
 margin-left: 0.5vw;}
-.boton-editar {background-color: var(--clr-blue-dark);}
+.boton-editar {background-color: var(--clr-blue-dark);
+}
 .count {
     display: flex;
 }
+/* para el inicio */
+.main-inicio {
+    background-image: url("https://i.pinimg.com/originals/45/a0/95/45a095cefde81ac9df9708ea105a4f75.gif");
+    background-size: cover;
+    background-attachment: fixed;
+}
+.contenedor-inicio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--clr-transparente);
+    min-height: 85vh;
+}
+
 .oculto{
     display: none;
 }

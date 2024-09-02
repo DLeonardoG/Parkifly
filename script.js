@@ -46,9 +46,10 @@ async function formGuardar() {
             });
         console.log(informacion);
         const placaM = placa.toUpperCase()
-        const existeEspacio = informacion.some(informacion => informacion.espacio === space);
-        const vehiculo = vehiculos.filter(vehi => vehi.estado === true)
-        const existePlaca = informacion.some(informacion => informacion. placa === placaM );
+        const vehiculos = informacion.filter(vehi => vehi.estado === true)
+        console.log(vehiculos);
+        const existeEspacio = vehiculos.some(info => info.espacio === space);
+        const existePlaca = vehiculos.some(info => info.placa === placaM );
         if(existeEspacio){
             alert("El espacio "+ space +" ya se encuentra ocupado");
             return;
@@ -73,7 +74,7 @@ async function formGuardar() {
                     body: JSON.stringify(vehiculo)
                 });
                 if (response.ok) {
-                    alert("Vehiculo registrado correctamente");
+                    alert("Vehiculo registrado con exito");
                     limpiarForm();
                 } else {
                     alert("Error al registrar el vehiculo");
@@ -93,6 +94,7 @@ async function guardarForm(){
         formRegistro.onsubmit = function(e){
             e.preventDefault();
             formGuardar();
+
         }
 }}
 function crearForm(){
@@ -179,7 +181,7 @@ async function mostrarDatos(){
             <td>${element.tipo}</td>
             <td>${element.hora}</td>
             <td>${element.espacio}</td>
-            <td class="count"><button id="${element.espacio}" class="boton boton-editar">Editar</button><button class="boton boton-eliminar">Eliminar</button></td>
+            <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Sacar</button></td>
         `;
         tablaBody.appendChild(row);
     });
@@ -293,7 +295,73 @@ async function formActualizar(valorEditable) {
             return 0;
     }
 }
-
+// ****************History****************
+async function mostrarHistorial(){
+    main.className = "";
+    contenedorElementos.className = "";
+    contenedorElementos.classList.add("oculto");
+    tabla.classList.remove("oculto");
+    main.classList.add("main-tabla");
+    contenedorElementos.innerHTML = "";
+    const vehiculos = await obtenerDatos(URL)
+    const vehiculo = vehiculos.filter(vehi => vehi.estado === false)
+    console.log(vehiculo)
+    tablaBody.innerHTML="";
+    vehiculo.forEach(element => {
+        const row = document.createElement("tr");
+        row.innerHTML = "";
+        row.innerHTML = `
+            <td>${element.id}</td>
+            <td>${element.placa}</td>
+            <td>${element.tipo}</td>
+            <td>${element.hora}</td>
+            <td>${element.espacio}</td>
+            <td class="count"><button id="${element.placa}" class="boton boton-eliminar"><i class="bi bi-trash-fill"></i>Eliminar</button></td>
+        `;
+        tablaBody.appendChild(row);
+    });
+    console.log(vehiculo)
+    botonesEliminarEvento(vehiculo)
+}
+function botonesEliminarEvento(vehiculo){
+    const botonesEliminar = document.querySelectorAll(".boton-eliminar");
+    botonesEliminar.forEach((boton) => {
+        boton.addEventListener("click", (e) => {
+            console.log(e.target.id)
+            const esp = e.currentTarget.id
+            const valorEliminar = vehiculo.filter(vehi => vehi.placa === esp)
+            console.log(valorEliminar)
+            eliminarVehiculo(valorEliminar)
+        })
+    });
+}
+async function eliminarVehiculo(valorEditable) {
+    // Se guarda las informacion en en variables
+    console.log(valorEditable)
+        const URL_ELI = "https://66d39804184dce1713d08825.mockapi.io/gotpark/vehiculos/"+valorEditable[0].id;
+        try {
+            let response = await fetch(URL_ELI, {
+                method: "DELETE",
+            });
+        if (response.ok) {
+            mostrarHistorial();
+            } else {
+                alert("Error al registrar la salida");
+           }
+        } catch (error){
+            console.log("Error" + error)
+        }
+}
+// ****************Inicio generar inicio****************
+function mostrarInicio(){
+    main.className = "";
+    contenedorElementos.className = "";
+    contenedorElementos.classList.remove("oculto");
+    tabla.classList.add("oculto");
+    main.classList.add("main-inicio");
+    contenedorElementos.classList.add("contenedor-inicio");
+    contenedorElementos.innerHTML = "";
+}
 // Obtener los datos de la API y mostrarlos en la tabla
 // Agregar los eventos a las funciones necesarias
 function botonesEventoFuncion(){
@@ -312,9 +380,14 @@ todosLosBotones.forEach((boton) => {
         case "ver":
             mostrarDatos();
             break;
+        case "historial":
+            mostrarHistorial();
+            break;
+        case "inicio":
+            mostrarInicio();
+            break;
         default:
             console.log("Opcion no valida");
     }})}
 )};
-
 botonesEventoFuncion()
