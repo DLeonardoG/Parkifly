@@ -4,7 +4,8 @@ const VerBoton = document.getElementById("ver");
 const main = document.getElementById("main");
 const contenedorElementos = document.getElementById("contenedor-elementos");
 const todosLosBotones = document.querySelectorAll(".boton-categoria")
-
+const tablaBody = document.getElementById("tabla-body"); 
+const tabla = document.getElementById("tabla-c");
 // const tablaBody = document.getElementById("tabla-body")
 // AQUI SE PIDEN LOS DATOS DE MOCKAPI
 async function obtenerDatos(url) {
@@ -96,11 +97,114 @@ async function guardarForm(){
         }
 }}
 function crearForm(){
+    main.className = "";
+    contenedorElementos.className = "";
+    tabla.classList.add("oculto");
+
     main.classList.add("formulario");
-                contenedorElementos.classList.add("contenedor-formulario");
-                contenedorElementos.innerHTML= "";
-                contenedorElementos.innerHTML = `
-                <h1 class="title">Registro de vehiculos</h1>
+    contenedorElementos.classList.add("contenedor-formulario");
+    contenedorElementos.innerHTML= "";
+    contenedorElementos.innerHTML = `
+            <h1 class="title">Registro de vehiculos</h1>
+            <form id="form-registro">
+                <div class="form-group">
+                    <span>Placa</span>
+                    <input type="text" id="placa" placeholder="Ingrese la placa" required>
+                </div>
+                <div class="form-group">
+                    <span>Tipo</span>
+                    <select id="tipo" name="tipo" required>
+                        <option value="Carro">Carro</option>
+                        <option value="Moto">Moto</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Camioneta">Camioneta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <span>Hora de entrada</span>
+                    <input type="time" id="hora" name="hora" required>
+                </div>
+                <div class="form-group">
+                    <span>Nivel</span>
+                    <select id="nivel" name="nivel" required>
+                        <option value="S">Stark(S)</option>
+                        <option value="T">Targarien(T)</option>
+                        <option value="L">Lanister(L)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <span>Espacio</span>
+                    <select id="espacio" name="espacio" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="button">
+                    <input type="submit" value="Registrar Carro">
+                </div>
+            </form>
+            `;
+    guardarForm();
+}
+function limpiarForm() {
+    document.getElementById("placa").value = "";
+    document.getElementById("tipo").value = "";
+    document.getElementById("hora").value = "";
+    document.getElementById("nivel").value = "";
+    document.getElementById("espacio").value = "";
+}
+function validarPlaca(cadena) {
+    const regex = /^[A-Za-z]{3}\d{3}$/;
+    return regex.test(cadena);
+}
+// Hasta aqui viene la funcionalidad de crear formulario
+// *******************************************************
+async function mostrarDatos(){
+    main.className = "";
+    contenedorElementos.className = "";
+    contenedorElementos.classList.add("oculto");
+    tabla.classList.remove("oculto");
+    main.classList.add("main-tabla");
+    contenedorElementos.innerHTML = "";
+
+    const vehiculos = await obtenerDatos(URL)
+    const vehiculo = vehiculos.filter(vehi => vehi.estado === true)
+    console.log(vehiculo)
+    tablaBody.innerHTML="";
+    vehiculo.forEach(element => {
+        const row = document.createElement("tr");
+        row.innerHTML = "";
+        row.innerHTML = `
+            <td>${element.id}</td>
+            <td>${element.placa}</td>
+            <td>${element.tipo}</td>
+            <td>${element.hora}</td>
+            <td>${element.espacio}</td>
+            <td class="count"><button id="${element.espacio}" class="boton boton-editar">Editar</button><button class="boton boton-eliminar">Eliminar</button></td>
+        `;
+        tablaBody.appendChild(row);
+    });
+    console.log(vehiculo)
+    botonesEditarEvento(vehiculo)
+}
+function botonesEditarEvento(vehiculo){
+    const botonesEditar = document.querySelectorAll(".boton-editar");
+    console.log(botonesEditar);
+    botonesEditar.forEach((boton) => {
+        boton.addEventListener("click", (e) => {
+            console.log(e.target.id)
+            const esp = e.currentTarget.id
+            const valorEditable = vehiculo.filter(vehi => vehi.espacio === esp)
+            console.log(valorEditable)
+            main.className = "";
+        contenedorElementos.className = "";
+        tabla.classList.add("oculto");
+        main.classList.add("formulario");
+        contenedorElementos.classList.add("contenedor-formulario");
+        contenedorElementos.innerHTML= "";
+        contenedorElementos.innerHTML = `
+                <h1 class="title">Salida de ${valorEditable[0].placa} - ${valorEditable[0].tipo}</h1>
                 <form id="form-registro">
                     <div class="form-group">
                         <span>Placa</span>
@@ -116,46 +220,24 @@ function crearForm(){
                         </select>
                     </div>
                     <div class="form-group">
-                        <span>Hora de entrada</span>
+                        <span>Hora de salida</span>
                         <input type="time" id="hora" name="hora" required>
                     </div>
-                    <div class="form-group">
-                        <span>Nivel</span>
-                        <select id="nivel" name="nivel" required>
-                            <option value="S">Stark(S)</option>
-                            <option value="T">Targarien(T)</option>
-                            <option value="L">Lanister(L)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <span>Espacio</span>
-                        <select id="espacio" name="espacio" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
                     <div class="button">
-                        <input type="submit" value="Registrar Carro">
+                        <input type="submit" value="Actualizar ${valorEditable[0].placa}">
                     </div>
                 </form>
                 `;
-        guardarForm();
+        document.getElementById("placa").value = valorEditable[0].placa;
+        document.getElementById("tipo").value = valorEditable[0].tipo;
+        todosLosBotones.forEach((boton) => {
+            boton.classList.remove("active");
+        })
+            })
+    });
 }
-function limpiarForm() {
-    document.getElementById("placa").value = "";
-    document.getElementById("tipo").value = "";
-    document.getElementById("hora").value = "";
-    document.getElementById("nivel").value = "";
-    document.getElementById("espacio").value = "";
-}
-function validarPlaca(cadena) {
-    const regex = /^[A-Za-z]{3}\d{3}$/;
-    return regex.test(cadena);
-}
-// Hasta aqui viene la funcionalidad de crear formulario
-// *******************************************************
 
+// Obtener los datos de la API y mostrarlos en la tabla
 // Agregar los eventos a las funciones necesarias
 function botonesEventoFuncion(){
 todosLosBotones.forEach((boton) => {
@@ -163,15 +245,19 @@ todosLosBotones.forEach((boton) => {
     todosLosBotones.forEach((boton) => {
         boton.classList.remove("active");
     })
-    main.className = "";
-    contenedorElementos.className = "";
     e.currentTarget.classList.add("active");
-    const per = e.currentTarget.id;
+    let per = e.currentTarget.id;
+    console.log(per);
     switch (per) {
         case "crear":
             crearForm();
+            break;
         case "ver":
             console.log("Ver")
+            mostrarDatos();
+            break;
+        default:
+            console.log("Opcion no valida");
     }})}
 )};
 
