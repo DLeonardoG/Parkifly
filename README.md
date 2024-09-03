@@ -42,11 +42,12 @@ Este repositorio contiene el código fuente del proyecto FireStarApp, conteniend
 
 1. **Clonar el Repositorio**: Clona el repositorio en tu máquina local usando Git. Esto descargará todo el proyecto.
    ```bash
-   git clone https://github.com/tuusuario/nombre-del-repositorio.git
+   git clone https://github.com/DLeonardoG/Proyecto_Javascript_GonzalezDavid
+   ```
 2. **Navega en el respositorio**:
  ```bash
-  cd nombre-del-repositorio
-
+  cd Proyecto_Javascript_GonzalezDavid
+ ```
 2. Configura adecuadamente todo lo adecuado para abrir el index de html.
 
 3. Abre la app con tu navegador de preferencia.
