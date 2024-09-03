@@ -413,6 +413,28 @@ function mostrarInicio(){
     main.classList.add("main-inicio");
     contenedorElementos.classList.add("contenedor-inicio");
     contenedorElementos.innerHTML = "";
+    const div = document.createElement("div");
+    const boton = document.createElement("button");
+    const h1 = document.createElement("h1")
+    const p = document.createElement("p")
+    h1.textContent = "Bienvenido a Run Run"
+    p.textContent = "Aqui podras registrar todos tus carros manejar tu parqueadero de la mejor manera"
+    h1.classList.add("titulo-inicio")
+    p.classList.add("texto-inicio")
+    div.classList.add("caja-inicio")
+    boton.classList.add("boton-iniciar")
+    boton.textContent = `Iniciar`
+    div.appendChild(h1)
+    div.appendChild(p)
+    div.appendChild(boton)
+    contenedorElementos.appendChild(div)
+    boton.addEventListener("click", () => {
+        er = document.getElementById("inicio");
+        er.classList.remove("active");
+        ere = document.getElementById("crear");
+        ere.classList.add("active");
+        crearForm();
+    })
 }
 // Obtener los datos de la API y mostrarlos en la tabla
 // Agregar los eventos a las funciones necesarias
@@ -424,7 +446,6 @@ todosLosBotones.forEach((boton) => {
     })
     e.currentTarget.classList.add("active");
     let per = e.currentTarget.id;
-    console.log(per);
     switch (per) {
         case "crear":
             crearForm();
@@ -442,4 +463,7 @@ todosLosBotones.forEach((boton) => {
             console.log("Opcion no valida");
     }})}
 )};
+ere = document.getElementById("inicio");
+ere.classList.add("active");
+mostrarInicio();
 botonesEventoFuncion()

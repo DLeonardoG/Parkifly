@@ -75,14 +75,54 @@ main {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
 }
+/* para el inicio */
+.main-inicio {
+    background-image: url("https://upload-os-bbs.hoyolab.com/upload/2023/06/04/345859709/05adb3c2a06cdddf2826b2dbbb6eeae5_4025544552747757028.jpeg");
+    min-height: 100vh;
+}
+.contenedor-inicio{
+    backdrop-filter: blur(10px);
+    background-color: var(--clr-transparente);
+    min-height: 100vh;
+    padding-bottom: 5vh;
+}
+.titulo-inicio {
+    font-size: 14vw;
+}
+.texto-inicio {
+    font-size: 5vw;
+}
+.caja-inicio {
+    color: var(--clr-inp);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5vw 0;
+}
+.boton-iniciar {
+    background-color: var(--clr-blur);
+    color: var(--clr-white);
+    padding: 2vh 2vw;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    font-size: 5vw;
+    margin: auto;
+    margin-top: 30px;
+    transition: background-color 0.3s ease-in-out;
+    &:hover {
+        background-color: var(--clr-black); 
+    }   
+}
+
 .formulario {
     background-image: url("https://i.pinimg.com/originals/e1/c8/7e/e1c87ee027baaf5b8a31d97eb74d1d1d.gif");
+    min-height: 100vh;
 }
 .contenedor-formulario {
-    max-width: 70vw;
-    width: 100%;
+    max-width: 50vw;
     padding: 25px 30px;
     border-radius: 10px;
     margin: auto;
@@ -147,6 +187,7 @@ form .button input {
     background-image: url("https://hips.hearstapps.com/hmg-prod/images/jalpadragcarwheelie-64871d23285f1.gif?resize=640:*");
     background-size: cover;
     background-attachment: fixed;
+    min-height: 100vh;
 }
 .tabla-container{
     backdrop-filter: blur(5px);
@@ -154,7 +195,7 @@ form .button input {
     flex-direction: column;
     justify-content: center;
     background-color: var(--clr-transparente);
-    min-height: 85vh;
+    min-height: 100vh;
 }
 .tabla-div{
 }
@@ -204,20 +245,6 @@ margin-left: 0.5vw;}
 .count {
     display: flex;
 }
-/* para el inicio */
-.main-inicio {
-    background-image: url("https://bordalo.observador.pt/v2/q:70/rs:fill:770:433/c:770:433:nowe:0:0/plain/https://s3.observador.pt/wp-content/uploads/2022/07/09192352/ezgifcom-gif-maker.gif");
-    background-size: cover;
-    background-attachment: fixed;
-}
-.contenedor-inicio{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: var(--clr-transparente);
-    min-height: 85vh;
-}
-
 .oculto{
     display: none;
 }
