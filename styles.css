@@ -27,8 +27,9 @@ a { text-decoration: none; }
     display: flex;
     background-color: var(--clr-main);
     flex-direction: column;
+    width: 100vw;
 }
-aside {
+header {
     background-color: var(--clr-black);
     color: var(--clr-white);
     display: flex;
@@ -37,10 +38,16 @@ aside {
     position: sticky;
     top: 0; 
     z-index: 1000;
-    width: 100%; 
+    width: 100vw; 
 }
-header {
-    width: 50%;
+.tiempoReal {
+    color: var(--clr-white);
+    padding: 1vh 2vw;
+    font-size: 1.5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .boton-menu {
     background-color: transparent;
@@ -50,13 +57,13 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.7rem;
+    gap: 1vw;
     font-weight: 400;
     padding: 0;
     font-size: 2vw;
     height: 100%;
     color: var(--clr-white);
-    padding: 20px;
+    padding: 2vh 2vw;
 }
 .lista {
     display: flex;
@@ -67,19 +74,19 @@ header {
     color: var(--clr-black);
     border-radius: 0.5rem;
 }
-.imagenMenu {
-    width: 50%;
-    object-fit: cover;
-}
 main {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 /* para el inicio */
 .main-inicio {
     background-image: url("https://upload-os-bbs.hoyolab.com/upload/2023/06/04/345859709/05adb3c2a06cdddf2826b2dbbb6eeae5_4025544552747757028.jpeg");
-    min-height: 100vh;
+
 }
 .contenedor-inicio{
     backdrop-filter: blur(10px);
@@ -110,7 +117,7 @@ main {
     width: 50%;
     font-size: 5vw;
     margin: auto;
-    margin-top: 30px;
+    margin-top: 3vh;
     transition: background-color 0.3s ease-in-out;
     &:hover {
         background-color: var(--clr-black); 
@@ -119,39 +126,36 @@ main {
 
 .formulario {
     background-image: url("https://i.pinimg.com/originals/e1/c8/7e/e1c87ee027baaf5b8a31d97eb74d1d1d.gif");
-    min-height: 100vh;
 }
 .contenedor-formulario {
-    max-width: 50vw;
-    padding: 25px 30px;
+    max-width: 70vw;
+    padding: 5vh 5vw;
     border-radius: 10px;
-    margin: auto;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin: 5vh 5vw;
     backdrop-filter: blur(10px);
     background-color: var(--clr-blur);
 }
 .contenedor-formulario .title {
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
     text-align: center;
     color: var(--clr-inp);
 }
 .container form {
-    display: flex;
+    display: flex;  
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 10px 12px 0;
+    margin: 1vh 1vw 0;
 }
 form .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 2vh;
     width: calc(100%/2 - 20px);
     color: var(--clr-inp);
 }
 form span{
     display: block;
     font-weight: 500;
-    margin-bottom: 5px;
+    margin-bottom: 1vh;
 }
 .form-group input, .form-group select{
     height: 40px;
@@ -159,8 +163,8 @@ form span{
     outline: none;
     border-radius: 2vw;
     border: 1px solid var(--clr-blue-dark);
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 1vw;
+    padding-right: 1vw;
     background-color: var(--clr-transparente);
     transition: all 0.3s ease;
     color: var(--clr-inp);
@@ -176,7 +180,7 @@ form .button input {
     height: 100%;
     outline: none;
     cursor: pointer;
-    background-color: var(--clr-tb-b);
+    background-color: var(--clr-blur);
     color: var(--clr-white);
     border: none;
     border-radius: 5px;
@@ -190,22 +194,19 @@ form .button input {
     min-height: 100vh;
 }
 .tabla-container{
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(15px);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--clr-transparente);
+    align-items: center;
+
     min-height: 100vh;
-}
-.tabla-div{
+    width: 100%;
 }
 table {
     color: #fff;
     font-size: 2vw;
-    width: 70%;
-    margin: auto;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    max-width: 60%;
 }
 thead {
     background: var(--clr-blue-dark);
@@ -217,30 +218,29 @@ th {
 }
 td {
     padding: 15px;
-    border-bottom: solid 1px var(--clr-tb-b);
+    border-bottom: solid 1px transparent;
 }
 tbody tr {
-    background-color: var(--clr-blue-ligh);
+    background-color: transparent;  
+    backdrop-filter: blur(15px);
     cursor: pointer;
 }
-tbody tr:hover { background: var(--clr-blue-delicado); }
-tr:nth-child(even){ background-color: var(--clr-blue-sky);}
-.oculto{
-    display: none;
-}
+tbody tr:hover { background: var(--clr-transparente); }
+tr:nth-child(even){ background-color: var(--clr-blur);  
+    backdrop-filter: blur(15px);}
 .boton {
-    padding: 10px 20px;
     color: #fff;
     border: none;
     cursor: pointer;
-    border-radius: 1vw;
+    border-radius: 1vw; 
+    gap: .7vw;
     display: flex;
-    gap: 1vw;
-    margin: auto;
+    padding: .9vw;
+    font-size: 1vw;
 }
-.boton-eliminar {background-color: var(--clr-red);
-margin-left: 0.5vw;}
-.boton-editar {background-color: var(--clr-blue-dark);
+.boton-eliminar {background-color: var(--clr-red);}
+.boton-editar {
+    background-color: var(--clr-blue-dark);
 }
 .count {
     display: flex;

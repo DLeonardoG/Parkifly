@@ -417,7 +417,7 @@ function mostrarInicio(){
     const boton = document.createElement("button");
     const h1 = document.createElement("h1")
     const p = document.createElement("p")
-    h1.textContent = "Bienvenido a Run Run"
+    h1.textContent = "Bienvenido a RunRun"
     p.textContent = "Aqui podras registrar todos tus carros manejar tu parqueadero de la mejor manera"
     h1.classList.add("titulo-inicio")
     p.classList.add("texto-inicio")
@@ -436,6 +436,28 @@ function mostrarInicio(){
         crearForm();
     })
 }
+const $tiempo = document.querySelector('.tiempo'),
+$fecha = document.querySelector('.fecha');
+
+function digitalClock(){
+    let f = new Date(),
+    dia = f.getDate(),
+    mes = f.getMonth() + 1,
+    anio = f.getFullYear(),
+    diaSemana = f.getDay();
+    dia = ('0' + dia).slice(-2);
+    mes = ('0' + mes).slice(-2)
+    const fechaH = document.getElementById("fechaH")
+    const tiepoH = document.getElementById("horaH")
+    let timeString = f.toLocaleTimeString();
+    tiepoH.innerHTML = timeString;
+    let semana = ['DOM','LUN','MAR','MIE','JUE','VIE','SAB'];
+    let showSemana = (semana[diaSemana]);
+    fechaH.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
+}
+setInterval(() => {
+    digitalClock()
+}, 1000);
 // Obtener los datos de la API y mostrarlos en la tabla
 // Agregar los eventos a las funciones necesarias
 function botonesEventoFuncion(){
@@ -463,7 +485,7 @@ todosLosBotones.forEach((boton) => {
             console.log("Opcion no valida");
     }})}
 )};
-ere = document.getElementById("inicio");
+const ere = document.getElementById("inicio");
 ere.classList.add("active");
 mostrarInicio();
 botonesEventoFuncion()
