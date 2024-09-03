@@ -35,7 +35,8 @@ async function formGuardar() {
         return;
     }
     const validacion = validarPlaca(placa)
-    if (validacion){
+    const validarEntrada = validarHora(hora)
+    if (validacion && validarEntrada === false){
         // Se hace la peticion al api para guardar el vehiculo
         let informacion = [];
         let data = [];
@@ -84,8 +85,13 @@ async function formGuardar() {
             }
         }
     } else {
-        alert("La placa debe tener 3 letras y 3 numeros, como /ABC123/");
-        return;
+        if (validacion === false){
+            alert("La placa debe tener 3 letras y 3 numeros, como /ABC123/");
+            return;
+        } else if (validarEntrada===true){
+            alert("La fecha tiene que ser menor al dia de hoy");
+            return;
+        }
     }
 }
 async function guardarForm(){
@@ -110,7 +116,7 @@ function crearForm(){
             <form id="form-registro">
                 <div class="form-group">
                     <span>Placa</span>
-                    <input type="text" id="placa" placeholder="Ingrese la placa" required>
+                    <input type="text" id="placa" placeholder="Ej. ABC123" required>
                 </div>
                 <div class="form-group">
                     <span>Tipo</span>
@@ -119,18 +125,20 @@ function crearForm(){
                         <option value="Moto">Moto</option>
                         <option value="Bus">Bus</option>
                         <option value="Camioneta">Camioneta</option>
+                        <option value="Camion">Camion</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <span>Hora de entrada</span>
-                    <input type="datetime-local" id="hora" name="hora" required>
+                    <input type="datetime-local"  min="2024-09-01T00:00" id="hora" name="hora" required>
                 </div>
                 <div class="form-group">
-                    <span>Nivel</span>
+                    <span>Sotano</span>
                     <select id="nivel" name="nivel" required>
-                        <option value="S">Stark(S)</option>
-                        <option value="T">Targarien(T)</option>
-                        <option value="L">Lanister(L)</option>
+                        <option value="A">Sotano A</option>
+                        <option value="B">Sotano B</option>
+                        <option value="C">Sotano C</option>
+                        <option value="D">Sotano D</option>
                     </select>
                 </div>  
                 <div class="form-group">
@@ -139,10 +147,17 @@ function crearForm(){
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
                     </select>
                 </div>
                 <div class="button">
-                    <input type="submit" value="Registrar Carro">
+                    <input type="submit" value="Registrar vehiculo">
                 </div>
             </form>
             `;
@@ -159,6 +174,27 @@ function validarPlaca(cadena) {
     const regex = /^[A-Za-z]{3}\d{3}$/;
     return regex.test(cadena);
 }
+function validarHora(fecha){
+    const fechaSeleccionada = new Date(fecha);
+    const ahora = new Date();
+    return fechaSeleccionada > ahora;
+}    
+function validarHoraSalida(fecha){
+    const fechaSeleccionada = new Date(fecha);
+    const ahora = new Date();
+    ahora.setMinutes(ahora.getMinutes() + 2);
+    return fechaSeleccionada < ahora;
+}
+function formatearFechaCorta(fechaP) {
+    const fecha = new Date(fechaP);
+    const dia = fecha.getDate();
+    const opcionesMes = { month: 'short' };
+    const mes = new Intl.DateTimeFormat('es-ES', opcionesMes).format(fecha);
+    const opcionesHora = { hour: '2-digit', minute: '2-digit', hour12: false };
+    const hora = new Intl.DateTimeFormat('es-ES', opcionesHora).format(fecha);
+    return `${dia} ${mes}, ${hora}`;
+}
+
 // Hasta aqui viene la funcionalidad de crear formulario
 // *******************************************************
 async function mostrarDatos(){
@@ -172,18 +208,22 @@ async function mostrarDatos(){
     const vehiculo = vehiculos.filter(vehi => vehi.estado === true)
     console.log(vehiculo)
     tablaBody.innerHTML="";
+    let cont = 1;
     vehiculo.forEach(element => {
+        const fechaEntrada = formatearFechaCorta(element.hora)
         const row = document.createElement("tr");
         row.innerHTML = "";
         row.innerHTML = `
-            <td>${element.id}</td>
+            <td>${cont}</td>
             <td>${element.placa}</td>
             <td>${element.tipo}</td>
-            <td>${element.hora}</td>
+            <td>${fechaEntrada}</td>
+            <td>Activo</td>
             <td>${element.espacio}</td>
-            <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Sacar</button></td>
+            <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Editar</button></td>
         `;
         tablaBody.appendChild(row);
+        cont += 1;
     });
     console.log(vehiculo)
     botonesEditarEvento(vehiculo)
@@ -212,7 +252,7 @@ function botonesEditarEvento(vehiculo){
                         <input type="datetime-local" id="horaSalida" name="hora" required>
                     </div>
                     <div class="button">
-                        <input type="submit" value="Actualizar ${valorEditable[0].placa}">
+                        <input type="submit" value="Registrar salida de ${valorEditable[0].placa}">
                     </div>
                 </form>
                 `;
@@ -236,14 +276,14 @@ async function formActualizar(valorEditable) {
     console.log(valorEditable)
     const entrada = new Date(valorEditable[0].hora);
     const salida = new Date(document.getElementById("horaSalida").value);
-    console.log(entrada)
-    console.log(salida);
-    if (salida >= entrada) {
-        console.log("La fecha y hora de salida es igual o posterior a la de inicio.");
+    const val = document.getElementById("horaSalida").value;
+    const validarSalida = validarHoraSalida(val)
+    console.log(document.getElementById("horaSalida").value)
+    if (salida >= entrada && validarSalida === true) {
         const diferenciaMinutos = calcularDiferenciaEnMinutos(entrada, salida);
         console.log(`La diferencia es de ${diferenciaMinutos} minutos.`);
-        if (diferenciaMinutos >= 1 && diferenciaMinutos <= 15) {
-            alert("El vehiculo no paso mas de 15 minutos por ende tiene costo")
+        if (diferenciaMinutos <= 15) {
+            alert("La duracion del vehiculo fue menor a 15 minutos, no tiene cobro.")
         } else {
             const costo = calcularCosto(diferenciaMinutos, valorEditable);
             alert(`El costo de la salida es ${costo} pesos`);
@@ -261,7 +301,7 @@ async function formActualizar(valorEditable) {
                 body: JSON.stringify(valorEditable[0])
             });
         if (response.ok) {
-            alert("Salida del  vehiculo hecha con exito");
+            alert("Salida del vehiculo realizada con exito");
             const ver = document.getElementById("ver")
             ver.classList.add("active")
             mostrarDatos();
@@ -272,7 +312,13 @@ async function formActualizar(valorEditable) {
             console.log("Error" + error)
         }
       } else {
-        console.log("La fecha de entrada es anterior a la de inicio.");
+        if (salida < entrada){
+            alert("La fecha de salida no puede ser anterior a la fecha de inicio.");
+            return;
+        } else if (validarSalida===false){
+            alert("La fecha y hora tienen que ser menores al dia y la fecha actual");
+            return;
+        }
     } 
 }
   function calcularDiferenciaEnMinutos(fechaHora1, fechaHora2) {
@@ -291,6 +337,8 @@ async function formActualizar(valorEditable) {
             return 60 * diferenciaMinutos;
         case "Bus":
             return 90 * diferenciaMinutos;
+        case "Camion":
+            return 110 * diferenciaMinutos;
         default:
             return 0;
     }
@@ -307,18 +355,23 @@ async function mostrarHistorial(){
     const vehiculo = vehiculos.filter(vehi => vehi.estado === false)
     console.log(vehiculo)
     tablaBody.innerHTML="";
+    let cont = 1;
     vehiculo.forEach(element => {
+        const fechaEntrada = formatearFechaCorta(element.hora)
+        const fechaSalida = formatearFechaCorta(element.salida)
         const row = document.createElement("tr");
         row.innerHTML = "";
         row.innerHTML = `
-            <td>${element.id}</td>
+            <td>${cont}</td>
             <td>${element.placa}</td>
             <td>${element.tipo}</td>
-            <td>${element.hora}</td>
+            <td>${fechaEntrada}</td>
+            <td>${fechaSalida}</td>
             <td>${element.espacio}</td>
             <td class="count"><button id="${element.placa}" class="boton boton-eliminar"><i class="bi bi-trash-fill"></i>Eliminar</button></td>
         `;
         tablaBody.appendChild(row);
+        cont += 1;
     });
     console.log(vehiculo)
     botonesEliminarEvento(vehiculo)
@@ -346,8 +399,7 @@ async function eliminarVehiculo(valorEditable) {
         if (response.ok) {
             mostrarHistorial();
             } else {
-                alert("Error al registrar la salida");
-           }
+                alert("Error al registrar la salida");}
         } catch (error){
             console.log("Error" + error)
         }

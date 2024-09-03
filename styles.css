@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 :root {
-    --clr-main: #cfef52;
+    --clr-main: #000000;
     --clr-black: #000;
     --clr-white: #fff;
     --clr-gray: #ebc7c7;
@@ -10,17 +10,15 @@
     --clr-blue-ligh: #3088AE;
     --clr-blue-sky: #72D2EB;
     --clr-blue-delicado: #1075e1;
-    --clr-red: #f32e14;
-}
-.contenedor-cabecera { 
-    background-color: transparent;
+    --clr-red: #a51a07;
+    --clr-inp: #fce4e1;
+    --clr-blur: hsla(0, 0%, 100%, 0.299);
 }
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Rubik', sans-serif;
-    overflow-x: hidden;
 }
 h1, h2, h3, h4, h5, h6, p, a, input, textarea { margin: 0;}
 ul { list-style-type: none; }
@@ -32,16 +30,14 @@ a { text-decoration: none; }
 }
 aside {
     background-color: var(--clr-black);
-    padding: 0.1rem;
     color: var(--clr-white);
-    position: sticky;
-    width:100vw;
-    height: 15vh;
-    top: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-right: 3vw;
+    position: sticky;
+    top: 0; 
+    z-index: 1000;
+    width: 100%; 
 }
 header {
     width: 50%;
@@ -62,25 +58,9 @@ header {
     color: var(--clr-white);
     padding: 20px;
 }
-.boton-menu-cabe {
-    background-color: transparent;
-    border: 0;
-    color: var(--clr-white);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.1rem;
-    font-weight: 400;
-    padding: 0;
-    font-size: 0.9rem;
-    width: 80%;
-    color: var(--clr-white);
-}
 .lista {
     display: flex;
-    gap: 0;
-    flex-wrap: wrap;  
+    flex-wrap: wrap; 
 }
 .boton-menu.active {
     background-color: var(--clr-white);
@@ -95,28 +75,27 @@ main {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    margin: 0;
-    padding: 0;
-    height: 85vh;
+    height: 100%;
 }
 .formulario {
-    background-color: var(--clr-gray);
-    display: flex;
-    height: 80vh;
-    justify-content: center;
-    align-items: center;
+    background-image: url("https://i.pinimg.com/originals/e1/c8/7e/e1c87ee027baaf5b8a31d97eb74d1d1d.gif");
 }
 .contenedor-formulario {
-    max-width: 700px;
+    max-width: 70vw;
     width: 100%;
     padding: 25px 30px;
-    background-color: var(--clr-white);
     border-radius: 10px;
+    margin: auto;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    backdrop-filter: blur(10px);
+    background-color: var(--clr-blur);
 }
 .contenedor-formulario .title {
-    font-size: 25px;
     font-weight: 500;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--clr-inp);
 }
 .container form {
     display: flex;
@@ -127,6 +106,7 @@ main {
 form .form-group {
     margin-bottom: 15px;
     width: calc(100%/2 - 20px);
+    color: var(--clr-inp);
 }
 form span{
     display: block;
@@ -137,12 +117,15 @@ form span{
     height: 40px;
     width: 100%;
     outline: none;
-    border-radius: 5%;
-    border: 1px solid var(--clr-gray);
+    border-radius: 2vw;
+    border: 1px solid var(--clr-blue-dark);
     padding-left: 15px;
-    border-bottom-width: 2px;
+    padding-right: 15px;
+    background-color: var(--clr-transparente);
     transition: all 0.3s ease;
+    color: var(--clr-inp);
 }
+
 form .button {
     width: 100%;
     height: 40px;
@@ -153,18 +136,20 @@ form .button input {
     height: 100%;
     outline: none;
     cursor: pointer;
-    background-color: var(--clr-black);
+    background-color: var(--clr-tb-b);
     color: var(--clr-white);
     border: none;
     border-radius: 5px;
+    backdrop-filter: blur(10px);
 }
 /* Para la tabla */
 .main-tabla{
-    background-image: url("https://media4.giphy.com/media/551KVCDoIwyiyXMVG9/giphy.gif");
+    background-image: url("https://hips.hearstapps.com/hmg-prod/images/jalpadragcarwheelie-64871d23285f1.gif?resize=640:*");
     background-size: cover;
     background-attachment: fixed;
 }
 .tabla-container{
+    backdrop-filter: blur(5px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -221,7 +206,7 @@ margin-left: 0.5vw;}
 }
 /* para el inicio */
 .main-inicio {
-    background-image: url("https://i.pinimg.com/originals/45/a0/95/45a095cefde81ac9df9708ea105a4f75.gif");
+    background-image: url("https://bordalo.observador.pt/v2/q:70/rs:fill:770:433/c:770:433:nowe:0:0/plain/https://s3.observador.pt/wp-content/uploads/2022/07/09192352/ezgifcom-gif-maker.gif");
     background-size: cover;
     background-attachment: fixed;
 }
