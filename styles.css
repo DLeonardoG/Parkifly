@@ -101,6 +101,7 @@ main {
 }
 .titulo-inicio {
     font-size: 14vw;
+    line-height: 1;
 }
 .texto-inicio {
     font-size: 5vw;
@@ -251,6 +252,24 @@ tr:nth-child(even){ background-color: var(--clr-blur);
 }
 #media-query{
     display: none;
+}
+.busc {
+    display: flex;
+    margin-bottom: 2vh;
+}
+.busc input {
+    width: 100%;
+    outline: none;
+    border-radius: 2vw;
+    border: 1px solid var(--clr-blue-dark);
+    padding-left: 1vw;
+    padding-right: 1vw;
+    background-color: var(--clr-transparente);
+    transition: all 0.3s ease;
+    color: var(--clr-inp);
+}
+.busc button {
+    height: 5vh;
 }
 .oculto{
     display: none;

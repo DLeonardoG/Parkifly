@@ -7,7 +7,6 @@ const todosLosBotones = document.querySelectorAll(".boton-categoria")
 const tablaBody = document.getElementById("tabla-body"); 
 const tabla = document.getElementById("tabla-c");
 const mediaQ = document.getElementById("media-query");
-// const tablaBody = document.getElementById("tabla-body")
 // AQUI SE PIDEN LOS DATOS DE MOCKAPI
 async function obtenerDatos(url) {
     try {
@@ -18,9 +17,7 @@ async function obtenerDatos(url) {
         } else {
             console.error("Error en la respuesta de la API:", res.status);
         }
-    } catch (error) {
-        console.error("Error en la solicitud:", error);
-    }
+    } catch (error) { console.error("Error en la solicitud:", error); }
 }
 // Crear vehiculo y rellenar el formulario
 async function formGuardar() {
@@ -43,9 +40,7 @@ async function formGuardar() {
         let data = [];
         const datos = await obtenerDatos(URL);
         data = datos;
-        data.forEach(element => {
-        informacion.push(element);
-            });
+        data.forEach(element => { informacion.push(element); });
         console.log(informacion);
         const placaM = placa.toUpperCase()
         const vehiculos = informacion.filter(vehi => vehi.estado === true)
@@ -81,9 +76,7 @@ async function formGuardar() {
                 } else {
                     alert("Error al registrar el vehiculo");
                 }
-            }catch (error){
-                console.log("error",error)
-            }
+            }catch (error){ console.log("error",error)}
         }
     } else {
         if (validacion === false){
@@ -100,15 +93,12 @@ async function guardarForm(){
         let formRegistro = document.getElementById("form-registro");
         formRegistro.onsubmit = function(e){
             e.preventDefault();
-            formGuardar();
-
-        }
+            formGuardar();}
 }}
 function crearForm(){
     main.className = "";
     contenedorElementos.className = "";
     tabla.classList.add("oculto");
-
     main.classList.add("formulario");
     contenedorElementos.classList.add("contenedor-formulario");
     contenedorElementos.innerHTML= "";
@@ -160,8 +150,7 @@ function crearForm(){
                 <div class="button">
                     <input type="submit" value="Registrar vehiculo">
                 </div>
-            </form>
-            `;
+            </form>`;
     guardarForm();
 }
 function limpiarForm() {
@@ -195,9 +184,7 @@ function formatearFechaCorta(fechaP) {
     const hora = new Intl.DateTimeFormat('es-ES', opcionesHora).format(fecha);
     return `${dia} ${mes}, ${hora}`;
 }
-
-// Hasta aqui viene la funcionalidad de crear formulario
-// *******************************************************
+// *********Hasta aqui viene la funcionalidad de crear formulario**********
 async function mostrarDatos(){
     main.className = "";
     contenedorElementos.className = "";
@@ -221,8 +208,7 @@ async function mostrarDatos(){
             <td>${fechaEntrada}</td>
             <td>Activo</td>
             <td>${element.espacio}</td>
-            <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Salida</button></td>
-        `;
+            <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Salida</button></td>`;
         tablaBody.appendChild(row);
         cont += 1;
     });
@@ -255,8 +241,7 @@ function botonesEditarEvento(vehiculo){
                     <div class="button">
                         <input type="submit" value="Registrar salida de ${valorEditable[0].placa}">
                     </div>
-                </form>
-                `;
+                </form>`;
         todosLosBotones.forEach((boton) => {
             boton.classList.remove("active");
         })
@@ -274,15 +259,12 @@ async function actualizarForm(valorEditable){
 }}
 async function formActualizar(valorEditable) {
     // Se guarda las informacion en en variables
-    console.log(valorEditable)
     const entrada = new Date(valorEditable[0].hora);
     const salida = new Date(document.getElementById("horaSalida").value);
     const val = document.getElementById("horaSalida").value;
     const validarSalida = validarHoraSalida(val)
-    console.log(document.getElementById("horaSalida").value)
     if (salida >= entrada && validarSalida === true) {
         const diferenciaMinutos = calcularDiferenciaEnMinutos(entrada, salida);
-        console.log(`La diferencia es de ${diferenciaMinutos} minutos.`);
         if (diferenciaMinutos <= 15) {
             alert("La duracion del vehiculo fue menor a 15 minutos, no tiene cobro.")
         } else {
@@ -358,15 +340,13 @@ async function mostrarHistorial(){
         const fechaSalida = formatearFechaCorta(element.salida)
         const row = document.createElement("tr");
         row.innerHTML = "";
-        row.innerHTML = `
-            <td>${cont}</td>
+        row.innerHTML = `<td>${cont}</td>
             <td>${element.placa}</td>
             <td>${element.tipo}</td>
             <td>${fechaEntrada}</td>
             <td>${fechaSalida}</td>
             <td>${element.espacio}</td>
-            <td class="count"><button id="${element.placa}" class="boton boton-eliminar"><i class="bi bi-trash-fill"></i>Eliminar</button></td>
-        `;
+            <td class="count"><button id="${element.placa}" class="boton boton-eliminar"><i class="bi bi-trash-fill"></i>Eliminar</button></td>`;
         tablaBody.appendChild(row);
         cont += 1;
     });
@@ -381,11 +361,9 @@ function botonesEliminarEvento(vehiculo){
             const esp = e.currentTarget.id
             const valorEliminar = vehiculo.filter(vehi => vehi.placa === esp)
             console.log(valorEliminar)
-            eliminarVehiculo(valorEliminar)
-        })
+            eliminarVehiculo(valorEliminar)})
     });
 }
-
 async function eliminarVehiculo(valorEditable) {
     // Se guarda las informacion en en variables
     console.log(valorEditable)
@@ -434,10 +412,7 @@ function mostrarInicio(){
         crearForm();
     })
 }
-const $tiempo = document.querySelector('.tiempo'),
-$fecha = document.querySelector('.fecha');
-
-function digitalClock(){
+function relojDigi(){
     let f = new Date(),
     dia = f.getDate(),
     mes = f.getMonth() + 1,
@@ -458,19 +433,14 @@ function digitalClock(){
     fechaA.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
 }
 setInterval(() => {
-    digitalClock()
+    relojDigi()
 }, 1000);
-// Meqdia query
-function aside(){
-}
-// Obtener los datos de la API y mostrarlos en la tabla
-// Agregar los eventos a las funciones necesarias
+// Obtener los datos de la API y mostrarlos en la tabla, agregar los eventos a las funciones necesarias
 function botonesEventoFuncion(){
 todosLosBotones.forEach((boton) => {
     boton.addEventListener("click", (e) => {
     todosLosBotones.forEach((boton) => {
-        boton.classList.remove("active");
-    })
+        boton.classList.remove("active");})
     e.currentTarget.classList.add("active");
     let per = e.currentTarget.id;
     switch (per) {
