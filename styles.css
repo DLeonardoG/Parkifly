@@ -1,17 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
 :root {
-    --clr-main: #000000;
     --clr-black: #000;
     --clr-white: #fff;
     --clr-gray: #ebc7c7;
-    --clr-green: #509840;
     --clr-transparente: #00000071;
     --clr-blue-dark: #002C3A;
-    --clr-blue-ligh: #3088AE;
-    --clr-blue-sky: #72D2EB;
-    --clr-blue-delicado: #1075e1;
-    --clr-red: #a51a07;
     --clr-inp: #fce4e1;
+    --clr-red: #df1313;
     --clr-blur: hsla(0, 0%, 100%, 0.299);
 }
 * {
@@ -20,12 +15,23 @@
     box-sizing: border-box;
     font-family: 'Rubik', sans-serif;
 }
+body {
+    background-color: var(--clr-white);
+    color: var(--clr-black);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
 h1, h2, h3, h4, h5, h6, p, a, input, textarea { margin: 0;}
 ul { list-style-type: none; }
 a { text-decoration: none; }
 .container {
     display: flex;
-    background-color: var(--clr-main);
+    background-color: var(--clr-black);
     flex-direction: column;
     width: 100vw;
 }
@@ -86,7 +92,6 @@ main {
 /* para el inicio */
 .main-inicio {
     background-image: url("https://upload-os-bbs.hoyolab.com/upload/2023/06/04/345859709/05adb3c2a06cdddf2826b2dbbb6eeae5_4025544552747757028.jpeg");
-
 }
 .contenedor-inicio{
     backdrop-filter: blur(10px);
@@ -123,7 +128,6 @@ main {
         background-color: var(--clr-black); 
     }   
 }
-
 .formulario {
     background-image: url("https://i.pinimg.com/originals/e1/c8/7e/e1c87ee027baaf5b8a31d97eb74d1d1d.gif");
 }
@@ -199,7 +203,7 @@ form .button input {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    padding: 5vh 0;
     min-height: 100vh;
     width: 100%;
 }
@@ -221,11 +225,11 @@ td {
     border-bottom: solid 1px transparent;
 }
 tbody tr {
-    background-color: transparent;  
+    background-color: var(--clr-transparente);  
     backdrop-filter: blur(15px);
     cursor: pointer;
 }
-tbody tr:hover { background: var(--clr-transparente); }
+tbody tr:hover { background: var(--clr-black); }
 tr:nth-child(even){ background-color: var(--clr-blur);  
     backdrop-filter: blur(15px);}
 .boton {
@@ -245,6 +249,44 @@ tr:nth-child(even){ background-color: var(--clr-blur);
 .count {
     display: flex;
 }
+#media-query{
+    display: none;
+}
 .oculto{
     display: none;
+}
+@media (max-width: 768px) {
+    .container{ filter: blur(10px); }
+    .tabla-container, .contenedor-formulario{ display: none; }
+    #media-query{
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        position: fixed;
+        z-index: 1000;
+        color: var(--clr-white);
+        padding: 5vw;
+        text-align: center;
+    }
+    #media-query p {
+        font-size:5vw;
+    }
+    #media-query h2 {
+        font-size:15vw;
+        line-height: 1;
+    }
+    .tiempoM {
+        position: fixed;
+        top:0;
+        background-color: var(--clr-transparente);
+        padding: 4vw;
+        width: 100vw;
+    }
 }

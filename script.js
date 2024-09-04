@@ -6,6 +6,7 @@ const contenedorElementos = document.getElementById("contenedor-elementos");
 const todosLosBotones = document.querySelectorAll(".boton-categoria")
 const tablaBody = document.getElementById("tabla-body"); 
 const tabla = document.getElementById("tabla-c");
+const mediaQ = document.getElementById("media-query");
 // const tablaBody = document.getElementById("tabla-body")
 // AQUI SE PIDEN LOS DATOS DE MOCKAPI
 async function obtenerDatos(url) {
@@ -89,7 +90,7 @@ async function formGuardar() {
             alert("La placa debe tener 3 letras y 3 numeros, como /ABC123/");
             return;
         } else if (validarEntrada===true){
-            alert("La fecha tiene que ser menor al dia de hoy");
+            alert("Lo siento no puedes registrar una entrada del futuro, registra la entrada actual o a inicio de mes...");
             return;
         }
     }
@@ -220,7 +221,7 @@ async function mostrarDatos(){
             <td>${fechaEntrada}</td>
             <td>Activo</td>
             <td>${element.espacio}</td>
-            <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Editar</button></td>
+            <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Salida</button></td>
         `;
         tablaBody.appendChild(row);
         cont += 1;
@@ -285,12 +286,12 @@ async function formActualizar(valorEditable) {
         if (diferenciaMinutos <= 15) {
             alert("La duracion del vehiculo fue menor a 15 minutos, no tiene cobro.")
         } else {
+            const tiempoHoras = diferenciaMinutos / 60;
             const costo = calcularCosto(diferenciaMinutos, valorEditable);
-            alert(`El costo de la salida es ${costo} pesos`);
+            alert(`El costo del vehiculo ${valorEditable[0].tipo} - ${valorEditable[0].placa} por su estadia de ${tiempoHoras.toFixed(2)} horas o ${diferenciaMinutos} minutos es de ${costo.toLocaleString('es-CO')} pesos.`);
         }; 
-        valorEditable[0].salida = salida
-        valorEditable[0].estado = false
-
+        valorEditable[0].salida = salida;
+        valorEditable[0].estado = false;
         const URL_UP = "https://66d39804184dce1713d08825.mockapi.io/gotpark/vehiculos/"+valorEditable[0].id;
         try {
             let response = await fetch(URL_UP, {
@@ -301,29 +302,25 @@ async function formActualizar(valorEditable) {
                 body: JSON.stringify(valorEditable[0])
             });
         if (response.ok) {
-            alert("Salida del vehiculo realizada con exito");
+            alert("Salida del vehiculo realizada con exito, esperamos mas vehiculos...");
             const ver = document.getElementById("ver")
             ver.classList.add("active")
             mostrarDatos();
-            } else {
-                alert("Error al registrar la salida");
-           }
-        } catch (error){
-            console.log("Error" + error)
-        }
+            } else { alert("Ey Ey, un poco mas tranquilo de a uno por uno porfa :)"); }
+        } catch (error){ console.log("Error" + error); }
       } else {
         if (salida < entrada){
             alert("La fecha de salida no puede ser anterior a la fecha de inicio.");
             return;
         } else if (validarSalida===false){
-            alert("La fecha y hora tienen que ser menores al dia y la fecha actual");
+            alert("Lo siento no puedes registrar la salida del futuro.");
             return;
         }
     } 
 }
   function calcularDiferenciaEnMinutos(fechaHora1, fechaHora2) {
-    const diferenciaMilisegundos = Math.abs(fechaHora2 - fechaHora1); // Diferencia en milisegundos
-    return Math.floor(diferenciaMilisegundos / 60000); // Convertir milisegundos a minutos
+    const diferenciaMilisegundos = Math.abs(fechaHora2 - fechaHora1);
+    return Math.floor(diferenciaMilisegundos / 60000);
   }
   function calcularCosto(diferenciaMinutos, valorEditable) {
     const type = valorEditable[0].tipo
@@ -388,6 +385,7 @@ function botonesEliminarEvento(vehiculo){
         })
     });
 }
+
 async function eliminarVehiculo(valorEditable) {
     // Se guarda las informacion en en variables
     console.log(valorEditable)
@@ -429,9 +427,9 @@ function mostrarInicio(){
     div.appendChild(boton)
     contenedorElementos.appendChild(div)
     boton.addEventListener("click", () => {
-        er = document.getElementById("inicio");
+        const er = document.getElementById("inicio");
         er.classList.remove("active");
-        ere = document.getElementById("crear");
+        const ere = document.getElementById("crear");
         ere.classList.add("active");
         crearForm();
     })
@@ -449,15 +447,22 @@ function digitalClock(){
     mes = ('0' + mes).slice(-2)
     const fechaH = document.getElementById("fechaH")
     const tiepoH = document.getElementById("horaH")
+    const fechaA = document.getElementById("fechaA")
+    const tiepoA = document.getElementById("horaA")
     let timeString = f.toLocaleTimeString();
     tiepoH.innerHTML = timeString;
+    tiepoA.innerHTML = timeString;
     let semana = ['DOM','LUN','MAR','MIE','JUE','VIE','SAB'];
     let showSemana = (semana[diaSemana]);
     fechaH.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
+    fechaA.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
 }
 setInterval(() => {
     digitalClock()
 }, 1000);
+// Meqdia query
+function aside(){
+}
 // Obtener los datos de la API y mostrarlos en la tabla
 // Agregar los eventos a las funciones necesarias
 function botonesEventoFuncion(){

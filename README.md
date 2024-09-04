@@ -36,7 +36,7 @@ RunRun es un sistema integral para la gestión de parqueaderos, diseñado para f
 
 ## Uso📝
 
-Este repositorio contiene el código fuente del proyecto FireStarApp, conteniendo toda la maquetacion de la pagina. Cada directorio y archivo está estructurado para facilitar despliegue de la aplicación.
+Este repositorio contiene el código fuente del proyecto del proyecto RunRun, conteniendo toda la maquetacion de la pagina. Cada directorio y archivo está estructurado para facilitar despliegue de la aplicación.
 
 ## Instrucciones📐
 
