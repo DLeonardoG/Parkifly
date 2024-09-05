@@ -11,7 +11,7 @@ const buscadorCaja = document.getElementById("busc");
 const textoBuscador = document.getElementById("buscador");
 const botonBuscador = document.getElementById("buscar");
 const totalidad = document.getElementById("totalidad");
-// AQUI SE PIDEN LOS DATOS DE MOCKAPI
+
 async function obtenerDatos(url) {
     try {
         const res = await fetch(url);
@@ -23,9 +23,7 @@ async function obtenerDatos(url) {
         }
     } catch (error) { console.error("Error en la solicitud:", error); }
 }
-// Crear vehiculo y rellenar el formulario
 async function formGuardar() {
-    // Se guarda las informacion en en variables
     const placa = document.getElementById("placa").value;
     const tipo = document.getElementById("tipo").value;
     const hora = document.getElementById("hora").value;
@@ -39,7 +37,6 @@ async function formGuardar() {
     const validacion = validarPlaca(placa)
     const validarEntrada = validarHora(hora)
     if (validacion && validarEntrada === false){
-        // Se hace la peticion al api para guardar el vehiculo
         let informacion = [];
         let data = [];
         const datos = await obtenerDatos(URL);
@@ -67,7 +64,6 @@ async function formGuardar() {
                     pago: 0,
                     estado: true
                 }
-                console.log(vehiculo)
                 let response = await fetch(URL, {
                     method: "POST",
                     headers: {
@@ -90,8 +86,7 @@ async function formGuardar() {
         } else if (validarEntrada===true){
             alert("Lo siento no puedes registrar una entrada del futuro, registra la entrada actual o a inicio de mes...");
             return;
-        }
-    }
+        }}
 }
 async function guardarForm(){
     if (document.querySelector("#form-registro")){
@@ -177,7 +172,7 @@ function validarHora(fecha){
 function validarHoraSalida(fecha){
     const fechaSeleccionada = new Date(fecha);
     const ahora = new Date();
-    ahora.setMinutes(ahora.getMinutes() + 2);
+    ahora.setMinutes(ahora.getMinutes() + 3);
     return fechaSeleccionada < ahora;
 }
 function formatearFechaCorta(fechaP) {
@@ -189,7 +184,27 @@ function formatearFechaCorta(fechaP) {
     const hora = new Intl.DateTimeFormat('es-ES', opcionesHora).format(fecha);
     return `${dia} ${mes}, ${hora}`;
 }
-// *********Hasta aqui viene la funcionalidad de crear formulario**********
+function relojDigi(){
+    let f = new Date(),
+    dia = f.getDate(),
+    mes = f.getMonth() + 1,
+    anio = f.getFullYear(),
+    diaSemana = f.getDay();
+    dia = ('0' + dia).slice(-2);
+    mes = ('0' + mes).slice(-2)
+    const fechaH = document.getElementById("fechaH")
+    const tiepoH = document.getElementById("horaH")
+    const fechaA = document.getElementById("fechaA")
+    const tiepoA = document.getElementById("horaA")
+    let timeString = f.toLocaleTimeString();
+    tiepoH.innerHTML = timeString;
+    tiepoA.innerHTML = timeString;
+    let semana = ['DOM','LUN','MAR','MIE','JUE','VIE','SAB'];
+    let showSemana = (semana[diaSemana]);
+    fechaH.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
+    fechaA.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
+}
+setInterval(() => { relojDigi() }, 1000);
 const filtrado = async()=>{
     main.className = "";
     contenedorElementos.className = "";
@@ -320,7 +335,6 @@ async function actualizarForm(valorEditable){
         }
 }}
 async function formActualizar(valorEditable) {
-    // Se guarda las informacion en en variables
     const entrada = new Date(valorEditable[0].hora);
     const salida = new Date(document.getElementById("horaSalida").value);
     const val = document.getElementById("horaSalida").value;
@@ -370,7 +384,6 @@ function calcularDiferenciaEnMinutos(fechaHora1, fechaHora2) {
   }
   function calcularCosto(diferenciaMinutos, valorEditable) {
     const type = valorEditable[0].tipo
-    console.log(type)
     switch (type) {
         case "Carro": return 50 * diferenciaMinutos;
         case "Moto": return 40 * diferenciaMinutos;
@@ -380,7 +393,6 @@ function calcularDiferenciaEnMinutos(fechaHora1, fechaHora2) {
         default: return 0;
     }
 }
-// ****************History****************
 function botonesEliminarEvento(vehiculo){
     const botonesEliminar = document.querySelectorAll(".boton-eliminar");
     botonesEliminar.forEach((boton) => {
@@ -393,7 +405,6 @@ function botonesEliminarEvento(vehiculo){
     });
 }
 async function eliminarVehiculo(valorEditable) {
-    // Se guarda las informacion en en variables
     console.log(valorEditable)
         const URL_ELI = "https://66d39804184dce1713d08825.mockapi.io/gotpark/vehiculos/"+valorEditable[0].id;
         try {
@@ -402,8 +413,7 @@ async function eliminarVehiculo(valorEditable) {
             });
         if (response.ok) {
             filtradoHistorial();
-            } else {
-                alert("Error al registrar la salida");}
+            } else { alert("Error al registrar la salida");}
         } catch (error){
             console.log("Error" + error)
         }
@@ -440,28 +450,6 @@ function mostrarInicio(){
         crearForm();
     })
 }
-function relojDigi(){
-    let f = new Date(),
-    dia = f.getDate(),
-    mes = f.getMonth() + 1,
-    anio = f.getFullYear(),
-    diaSemana = f.getDay();
-    dia = ('0' + dia).slice(-2);
-    mes = ('0' + mes).slice(-2)
-    const fechaH = document.getElementById("fechaH")
-    const tiepoH = document.getElementById("horaH")
-    const fechaA = document.getElementById("fechaA")
-    const tiepoA = document.getElementById("horaA")
-    let timeString = f.toLocaleTimeString();
-    tiepoH.innerHTML = timeString;
-    tiepoA.innerHTML = timeString;
-    let semana = ['DOM','LUN','MAR','MIE','JUE','VIE','SAB'];
-    let showSemana = (semana[diaSemana]);
-    fechaH.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
-    fechaA.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
-}
-setInterval(() => { relojDigi() }, 1000);
-// Obtener los datos de la API y mostrarlos en la tabla, agregar los eventos a las funciones necesarias
 function botonesEventoFuncion(){
 todosLosBotones.forEach((boton) => {
     boton.addEventListener("click", (e) => {
@@ -470,18 +458,10 @@ todosLosBotones.forEach((boton) => {
     e.currentTarget.classList.add("active");
     let per = e.currentTarget.id;
     switch (per) {
-        case "crear":
-            crearForm();
-            break;
-        case "ver":
-            filtrado();
-            break;
-        case "historial":
-            filtradoHistorial();
-            break;
-        case "inicio":
-            mostrarInicio();
-            break;
+        case "crear": crearForm(); break;
+        case "ver": filtrado(); break; 
+        case "historial": filtradoHistorial(); break;
+        case "inicio": mostrarInicio(); break;
         default: console.log("Opcion no valida");
     }})}
 )};
