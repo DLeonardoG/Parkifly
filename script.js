@@ -7,6 +7,10 @@ const todosLosBotones = document.querySelectorAll(".boton-categoria")
 const tablaBody = document.getElementById("tabla-body"); 
 const tabla = document.getElementById("tabla-c");
 const mediaQ = document.getElementById("media-query");
+const buscadorCaja = document.getElementById("busc");
+const textoBuscador = document.getElementById("buscador");
+const botonBuscador = document.getElementById("buscar");
+const totalidad = document.getElementById("totalidad");
 // AQUI SE PIDEN LOS DATOS DE MOCKAPI
 async function obtenerDatos(url) {
     try {
@@ -60,6 +64,7 @@ async function formGuardar() {
                     tipo: tipo,
                     hora: hora,
                     espacio: space,
+                    pago: 0,
                     estado: true
                 }
                 console.log(vehiculo)
@@ -185,19 +190,21 @@ function formatearFechaCorta(fechaP) {
     return `${dia} ${mes}, ${hora}`;
 }
 // *********Hasta aqui viene la funcionalidad de crear formulario**********
-async function mostrarDatos(){
+const filtrado = async()=>{
     main.className = "";
     contenedorElementos.className = "";
     contenedorElementos.classList.add("oculto");
     tabla.classList.remove("oculto");
     main.classList.add("main-tabla");
-    contenedorElementos.innerHTML = "";
+    totalidad.classList.add("oculto");
     const vehiculos = await obtenerDatos(URL)
     const vehiculo = vehiculos.filter(vehi => vehi.estado === true)
     console.log(vehiculo)
     tablaBody.innerHTML="";
     let cont = 1;
-    vehiculo.forEach(element => {
+    const texto = textoBuscador.value.toUpperCase()
+    vehiculo.forEach(element=>{
+        if(element.placa.indexOf(texto) !== -1){ 
         const fechaEntrada = formatearFechaCorta(element.hora)
         const row = document.createElement("tr");
         row.innerHTML = "";
@@ -208,12 +215,67 @@ async function mostrarDatos(){
             <td>${fechaEntrada}</td>
             <td>Activo</td>
             <td>${element.espacio}</td>
+            <td>n/a</td>
             <td class="count"><button id="${element.espacio}" class="boton boton-editar"><i class="bi bi-pencil-square"></i>Salida</button></td>`;
         tablaBody.appendChild(row);
         cont += 1;
-    });
-    console.log(vehiculo)
+        }
+    })
+    if(tablaBody.innerHTML === ""){
+        const row = document.createElement("tr");
+        row.innerHTML = "";
+        row.innerHTML = `
+            <td colspan="8">La placa no se encuentra en el parqueadero</td>`;
+        tablaBody.appendChild(row);
+    }
+    textoBuscador.removeEventListener("keyup", filtradoHistorial);
+    textoBuscador.addEventListener("keyup", filtrado);
     botonesEditarEvento(vehiculo)
+}
+const filtradoHistorial = async()=>{
+    totalidad.classList.remove("oculto");
+    main.className = "";
+    contenedorElementos.className = "";
+    contenedorElementos.classList.add("oculto");
+    tabla.classList.remove("oculto");
+    main.classList.add("main-tabla");
+    const vehiculos = await obtenerDatos(URL)
+    const vehiculo = vehiculos.filter(vehi => vehi.estado === false)
+    console.log(vehiculo)
+    tablaBody.innerHTML="";
+    let cont = 1;
+    let tot = 0;
+    const texto = textoBuscador.value.toUpperCase()
+    vehiculo.forEach(element=>{
+        if(element.placa.indexOf(texto) !== -1){ 
+        const fechaEntrada = formatearFechaCorta(element.hora)
+        const fechaSalida = formatearFechaCorta(element.salida)
+        const row = document.createElement("tr");
+        row.innerHTML = "";
+        row.innerHTML = `
+            <td>${cont}</td>
+            <td>${element.placa}</td>
+            <td>${element.tipo}</td>
+            <td>${fechaEntrada}</td>
+            <td>${fechaSalida}</td>
+            <td>${element.espacio}</td>
+            <td>${element.pago.toLocaleString('es-CO')}</td>
+            <td class="count"><button id="${element.placa}" class="boton boton-eliminar"><i class="bi bi-trash-fill"></i>Eliminar</button></td>`;
+        tablaBody.appendChild(row);
+        cont += 1;
+        tot += element.pago;
+        totalidad.innerHTML=`Total: ${tot.toLocaleString('es-CO')}`;
+        }
+    })
+    if(tablaBody.innerHTML === ""){
+        const row = document.createElement("tr");
+        row.innerHTML = "";
+        row.innerHTML = `
+            <td colspan="8">Lo sentimos la placa no esta registrada</td>`;
+        tablaBody.appendChild(row);}
+    textoBuscador.removeEventListener("keyup", filtrado);
+    textoBuscador.addEventListener("keyup", filtradoHistorial);
+    botonesEliminarEvento(vehiculo)
 }
 function botonesEditarEvento(vehiculo){
     const botonesEditar = document.querySelectorAll(".boton-editar");
@@ -271,9 +333,11 @@ async function formActualizar(valorEditable) {
             const tiempoHoras = diferenciaMinutos / 60;
             const costo = calcularCosto(diferenciaMinutos, valorEditable);
             alert(`El costo del vehiculo ${valorEditable[0].tipo} - ${valorEditable[0].placa} por su estadia de ${tiempoHoras.toFixed(2)} horas o ${diferenciaMinutos} minutos es de ${costo.toLocaleString('es-CO')} pesos.`);
+            var pago = costo
         }; 
         valorEditable[0].salida = salida;
         valorEditable[0].estado = false;
+        valorEditable[0].pago = pago;
         const URL_UP = "https://66d39804184dce1713d08825.mockapi.io/gotpark/vehiculos/"+valorEditable[0].id;
         try {
             let response = await fetch(URL_UP, {
@@ -287,7 +351,7 @@ async function formActualizar(valorEditable) {
             alert("Salida del vehiculo realizada con exito, esperamos mas vehiculos...");
             const ver = document.getElementById("ver")
             ver.classList.add("active")
-            mostrarDatos();
+            filtrado();
             } else { alert("Ey Ey, un poco mas tranquilo de a uno por uno porfa :)"); }
         } catch (error){ console.log("Error" + error); }
       } else {
@@ -300,7 +364,7 @@ async function formActualizar(valorEditable) {
         }
     } 
 }
-  function calcularDiferenciaEnMinutos(fechaHora1, fechaHora2) {
+function calcularDiferenciaEnMinutos(fechaHora1, fechaHora2) {
     const diferenciaMilisegundos = Math.abs(fechaHora2 - fechaHora1);
     return Math.floor(diferenciaMilisegundos / 60000);
   }
@@ -308,51 +372,15 @@ async function formActualizar(valorEditable) {
     const type = valorEditable[0].tipo
     console.log(type)
     switch (type) {
-        case "Carro":
-            return 50 * diferenciaMinutos;
-        case "Moto":
-            return 40 * diferenciaMinutos;
-        case "Camioneta":
-            return 60 * diferenciaMinutos;
-        case "Bus":
-            return 90 * diferenciaMinutos;
-        case "Camion":
-            return 110 * diferenciaMinutos;
-        default:
-            return 0;
+        case "Carro": return 50 * diferenciaMinutos;
+        case "Moto": return 40 * diferenciaMinutos;
+        case "Camioneta": return 60 * diferenciaMinutos;
+        case "Bus": return 90 * diferenciaMinutos;
+        case "Camion": return 110 * diferenciaMinutos;
+        default: return 0;
     }
 }
 // ****************History****************
-async function mostrarHistorial(){
-    main.className = "";
-    contenedorElementos.className = "";
-    contenedorElementos.classList.add("oculto");
-    tabla.classList.remove("oculto");
-    main.classList.add("main-tabla");
-    contenedorElementos.innerHTML = "";
-    const vehiculos = await obtenerDatos(URL)
-    const vehiculo = vehiculos.filter(vehi => vehi.estado === false)
-    console.log(vehiculo)
-    tablaBody.innerHTML="";
-    let cont = 1;
-    vehiculo.forEach(element => {
-        const fechaEntrada = formatearFechaCorta(element.hora)
-        const fechaSalida = formatearFechaCorta(element.salida)
-        const row = document.createElement("tr");
-        row.innerHTML = "";
-        row.innerHTML = `<td>${cont}</td>
-            <td>${element.placa}</td>
-            <td>${element.tipo}</td>
-            <td>${fechaEntrada}</td>
-            <td>${fechaSalida}</td>
-            <td>${element.espacio}</td>
-            <td class="count"><button id="${element.placa}" class="boton boton-eliminar"><i class="bi bi-trash-fill"></i>Eliminar</button></td>`;
-        tablaBody.appendChild(row);
-        cont += 1;
-    });
-    console.log(vehiculo)
-    botonesEliminarEvento(vehiculo)
-}
 function botonesEliminarEvento(vehiculo){
     const botonesEliminar = document.querySelectorAll(".boton-eliminar");
     botonesEliminar.forEach((boton) => {
@@ -373,7 +401,7 @@ async function eliminarVehiculo(valorEditable) {
                 method: "DELETE",
             });
         if (response.ok) {
-            mostrarHistorial();
+            filtradoHistorial();
             } else {
                 alert("Error al registrar la salida");}
         } catch (error){
@@ -393,8 +421,8 @@ function mostrarInicio(){
     const boton = document.createElement("button");
     const h1 = document.createElement("h1")
     const p = document.createElement("p")
-    h1.textContent = "Bienvenido a RunRun"
-    p.textContent = "Aqui podras registrar todos tus carros manejar tu parqueadero de la mejor manera"
+    h1.textContent = "Bienvenido a Parkify"
+    p.textContent = "Aqui podras registrar todos tus vehiculos, permitiendote manejar tu parqueadero de manera segura, facil, y eficaz..."
     h1.classList.add("titulo-inicio")
     p.classList.add("texto-inicio")
     div.classList.add("caja-inicio")
@@ -432,9 +460,7 @@ function relojDigi(){
     fechaH.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
     fechaA.innerHTML = `${anio}-${mes}-${dia} ${showSemana}`
 }
-setInterval(() => {
-    relojDigi()
-}, 1000);
+setInterval(() => { relojDigi() }, 1000);
 // Obtener los datos de la API y mostrarlos en la tabla, agregar los eventos a las funciones necesarias
 function botonesEventoFuncion(){
 todosLosBotones.forEach((boton) => {
@@ -448,16 +474,15 @@ todosLosBotones.forEach((boton) => {
             crearForm();
             break;
         case "ver":
-            mostrarDatos();
+            filtrado();
             break;
         case "historial":
-            mostrarHistorial();
+            filtradoHistorial();
             break;
         case "inicio":
             mostrarInicio();
             break;
-        default:
-            console.log("Opcion no valida");
+        default: console.log("Opcion no valida");
     }})}
 )};
 const ere = document.getElementById("inicio");

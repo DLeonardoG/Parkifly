@@ -1,4 +1,4 @@
-# RunRun🅿️
+# Parkify🅿️
 
 ## Tabla de contenido
 | Indice | Título  |
@@ -12,7 +12,7 @@
 
 ## Descripcion🚀
 
-RunRun es un sistema integral para la gestión de parqueaderos, diseñado para facilitar la administración de espacios de estacionamiento en tiempo real. Este proyecto está orientado a propietarios de parqueaderos y administradores que buscan una solución eficiente y moderna para el control y la optimización del uso de los espacios de su parqueadero.
+Parkify es un sistema integral para la gestión de parqueaderos, diseñado para facilitar la administración de espacios de estacionamiento en tiempo real. Este proyecto está orientado a propietarios de parqueaderos y administradores que buscan una solución eficiente y moderna para el control y la optimización del uso de los espacios de su parqueadero.
 
 ## Características🧮
 
@@ -22,9 +22,9 @@ RunRun es un sistema integral para la gestión de parqueaderos, diseñado para f
 
 3. **Registrar salida**: Permite registrar la salida de los vehiculos y generar un pago dependiendo su duracion y la tarifa por vehiculo.
 
-4. **Historial** 📄: Permite visualizar los vehiculos que estuvieron antes.
+4. **Historial**: Permite visualizar los vehiculos que estuvieron antes.
 
-5. **Eliminar** 📄: Permite eliminar el vehiculo completamente de la base de datos.
+5. **Eliminar**: Permite eliminar el vehiculo completamente de la base de datos.
 
 ## Tecnologias🖥️ 
 
@@ -36,7 +36,7 @@ RunRun es un sistema integral para la gestión de parqueaderos, diseñado para f
 
 ## Uso📝
 
-Este repositorio contiene el código fuente del proyecto del proyecto RunRun, conteniendo toda la maquetacion de la pagina. Cada directorio y archivo está estructurado para facilitar despliegue de la aplicación.
+Este repositorio contiene el código fuente del proyecto del proyecto Parkify, conteniendo toda la maquetacion de la pagina. Cada directorio y archivo está estructurado para facilitar despliegue de la aplicación.
 
 ## Instrucciones📐
 

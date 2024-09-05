@@ -97,14 +97,14 @@ main {
     backdrop-filter: blur(10px);
     background-color: var(--clr-transparente);
     min-height: 100vh;
-    padding-bottom: 5vh;
+    padding: 5vh 0;
 }
 .titulo-inicio {
-    font-size: 14vw;
+    font-size: 10vw;
     line-height: 1;
 }
 .texto-inicio {
-    font-size: 5vw;
+    font-size: 3vw;
 }
 .caja-inicio {
     color: var(--clr-inp);
@@ -112,6 +112,7 @@ main {
     flex-direction: column;
     justify-content: center;
     padding: 0 5vw 0;
+    gap: 4vh;
 }
 .boton-iniciar {
     background-color: var(--clr-blur);
@@ -121,9 +122,8 @@ main {
     border: none;
     cursor: pointer;
     width: 50%;
-    font-size: 5vw;
+    font-size: 3vw;
     margin: auto;
-    margin-top: 3vh;
     transition: background-color 0.3s ease-in-out;
     &:hover {
         background-color: var(--clr-black); 
@@ -247,17 +247,32 @@ tr:nth-child(even){ background-color: var(--clr-blur);
 .boton-editar {
     background-color: var(--clr-blue-dark);
 }
+#totalidad {
+    font-size: 2vw;
+    margin-bottom: 2vh;
+    color: var(--clr-inp);
+    background-color: var(--clr-transparente);
+    padding: 2vh;
+    border-radius: 5vw;
+    align-self: flex-end;
+    position: sticky;
+    top: 12vh;
+    margin-right: 5vw;
+    z-index: 1000;
+    cursor: pointer;
+    &:hover {background-color: var(--clr-white); color: var(--clr-black);}
+}
 .count {
     display: flex;
 }
 #media-query{
     display: none;
 }
-.busc {
+#busc {
     display: flex;
     margin-bottom: 2vh;
 }
-.busc input {
+#busc input {
     width: 100%;
     outline: none;
     border-radius: 2vw;
@@ -268,8 +283,8 @@ tr:nth-child(even){ background-color: var(--clr-blur);
     transition: all 0.3s ease;
     color: var(--clr-inp);
 }
-.busc button {
-    height: 5vh;
+#busc button {
+    cursor: auto;
 }
 .oculto{
     display: none;
@@ -282,9 +297,6 @@ tr:nth-child(even){ background-color: var(--clr-blur);
         flex-direction: column;
         width: 100vw;
         height: 100vh;
-        background-attachment: fixed;
-        background-size: cover;
-        background-repeat: no-repeat;
         justify-content: center;
         align-items: center;
         top: 0;
